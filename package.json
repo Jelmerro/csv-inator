@@ -1,0 +1,131 @@
+{
+  "name": "csv-inator",
+  "version": "0.1.0",
+  "description": "The evil invention of choice to edit csv files",
+  "main": "app/index.js",
+  "build": {
+    "appId": "com.github.jelmerro.csv-inator",
+    "linux": {
+      "executableName": "csv-inator",
+      "icon": "build/icons",
+      "category": "Office;Utility;",
+      "maintainer": "Jelmer van Arnhem",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "freebsd",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "snap",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "icon": "build/icons",
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "extraFiles": [
+        {
+          "from": "README.md",
+          "to": "../../README.md"
+        },
+        {
+          "from": "LICENSE",
+          "to": "../../LICENSE"
+        }
+      ]
+    },
+    "win": {
+      "icon": "build/icons",
+      "legalTrademarks": "Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "license": "LICENSE"
+    },
+    "fileAssociations": [
+      {
+        "ext": "csv"
+      }
+    ],
+    "copyright": "Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)",
+    "extraFiles": [
+      "README.md",
+      "LICENSE"
+    ]
+  },
+  "scripts": {
+    "start": "electron app",
+    "buildall": "electron-builder --linux --mac --win",
+    "buildlinux": "electron-builder --linux",
+    "buildmac": "electron-builder --mac",
+    "buildwin": "electron-builder --win"
+  },
+  "repository": "https://github.com/Jelmerro/csv-inator",
+  "homepage": "https://github.com/Jelmerro/csv-inator",
+  "keywords": [
+    "Electron",
+    "Office",
+    "CSV",
+    "Utility"
+  ],
+  "author": "Jelmer van Arnhem",
+  "email": "Jelmerro@users.noreply.github.com",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.8.6",
+    "electron-builder": "^20.13.1"
+  },
+  "dependencies": {
+    "papaparse": "^4.4.0"
+  }
+}

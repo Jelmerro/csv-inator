@@ -1,0 +1,25 @@
+<!-- Copyright @ Jelmer van Arnhem | Licensed as free software (MIT) -->
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <nav>
+        <button title="New" onclick="FILE.empty()"><img src="img/document_empty.png"></button>
+        <button title="Open" onclick="FILE.open()"><img src="img/folder_vertical_document.png"></button>
+        <button title="Save" disabled onclick="FILE.save()" id="save"><img src="img/save_as_grey.png"></button>
+        <input title="Set the delimiter for the file, usually a comma" required pattern="(~|\||,|\.|;|:|\\t|\t| )" disabled maxlength="2" type="text" placeholder="delimiter" id="delimiter">
+        <button title="Insert column left" onclick="TABLE.add('column', 'left')" id="column-left"><img src="img/table_columns_insert_left.png"></button>
+        <button title="Insert column right" onclick="TABLE.add('column', 'right')" id="column-right"><img src="img/table_columns_insert_right.png"></button>
+        <button title="Delete column" onclick="TABLE.remove('column')" id="column-remove"><img src="img/table_columns_remove.png"></button>
+        <button title="Insert row above" onclick="TABLE.add('row', 'above')" id="row-above"><img src="img/table_rows_insert_above_word.png"></button>
+        <button title="Insert row below" onclick="TABLE.add('row', 'below')" id="row-below"><img src="img/table_rows_insert_below_word.png"></button>
+        <button title="Delete row" onclick="TABLE.remove('row')" id="row-remove"><img src="img/table_rows_remove.png"></button>
+        <button title="About" onclick="STATUS.about()"><img src="img/information.png"></button>
+    </nav>
+    <table id="csv"></table>
+    <script src="js/main.js"></script>
+</body>
+</html>
