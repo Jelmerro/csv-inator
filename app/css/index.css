@@ -1,0 +1,58 @@
+/* Copyright @ Jelmer van Arnhem | Licensed as free software (MIT) */
+nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 65px;
+    width: 100vw;
+    background-color: #333;
+}
+:invalid::-webkit-input-placeholder {
+  color: black;
+}
+input:invalid {
+    background-color: #f55;
+    color: black;
+}
+input {
+    padding: 4px;
+}
+input:disabled, button:disabled {
+    color: #666;
+}
+input, button {
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #666;
+}
+button:first-child {
+    margin-left: 10px;
+}
+button img {
+    height: 32px;
+}
+button, #delimiter {
+    user-select: none;
+    padding: 6px;
+    border-radius: 2px;
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 45px;
+    width: 45px;
+}
+#delimiter {
+    height: 31px;
+    width: 50px;
+}
+#csv {
+    margin-top: 65px;
+    border-collapse: collapse;
+}
+#csv td {
+    padding: 0;
+    margin: 0;
+}
+.focussed {
+    border: 1px solid #f80;
+}

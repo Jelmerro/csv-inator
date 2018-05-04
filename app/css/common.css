@@ -1,0 +1,15 @@
+/* Copyright @ Jelmer van Arnhem | Licensed as free software (MIT) */
+body {
+    font-family: sans-serif !important;
+    background-color: #333;
+    color: #eee;
+}
+::selection {
+    background: #f80;
+}
+input, button {
+    outline: 0;
+}
+img {
+    pointer-events: none;
+}

@@ -1,0 +1,25 @@
+/* Copyright @ Jelmer van Arnhem | Licensed as free software (MIT) */
+body {
+    font-size: 16px;
+    margin: 25px;
+}
+div {
+    display: flex;
+}
+div > span {
+    padding: 5px;
+}
+button {
+    font-size: 18px;
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #666;
+    padding: 10px;
+}
+img {
+    height: 100px;
+}
+.url {
+    color: #99f;
+    cursor: pointer;
+}
