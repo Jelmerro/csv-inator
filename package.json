@@ -1,6 +1,6 @@
 {
   "name": "csv-inator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The evil invention of choice to edit csv files",
   "main": "app/index.js",
   "build": {
@@ -122,10 +122,11 @@
   "email": "Jelmerro@users.noreply.github.com",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.8.6",
-    "electron-builder": "^20.13.1"
+    "electron": "^2.0.5",
+    "electron-builder": "^20.23.0",
+    "eslint": "^5.1.0"
   },
   "dependencies": {
-    "papaparse": "^4.4.0"
+    "papaparse": "^4.5.0"
   }
 }

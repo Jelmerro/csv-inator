@@ -42,7 +42,7 @@ You can start csv-inator from the project folder using `npm start` or run the pr
 
 ## License
 
-csv-inator and main icon are licensed as MIT, see LICENSE for details.
+csv-inator and main icon are made by [Jelmer van Arnhem](https://github.com/Jelmerro) and are licensed as MIT, see LICENSE for details.
 
 The name was devised by [M4Y](https://github.com/fabiaant).
 

@@ -1,30 +1,23 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
-"use strict";
+"use strict"
 
-const fs = require("fs");
-const path = require("path");
-const { remote } = require("electron");
-const { ipcRenderer } = require("electron");
-const url = require("url");
-const Papa = require("papaparse");
-const STATUS = require("./js/status.js");
-const TABLE = require("./js/tableactions.js");
-const PARSER = require("./js/parser.js");
-const FILE = require("./js/fileactions.js");
+const fs = require("fs")
+const path = require("path")
+const { remote } = require("electron")
+const { ipcRenderer } = require("electron")
+const url = require("url")
+const Papa = require("papaparse")
+const STATUS = require("./js/status.js")
+const TABLE = require("./js/tableactions.js")
+const PARSER = require("./js/parser.js")
+const FILE = require("./js/fileactions.js")
+const KEYBOARD = require("./js/keyboard.js")
 
-remote.getCurrentWindow().on("close", e => {
-    let shouldQuit = FILE.askForSave();
-    if (shouldQuit) {
-        remote.getCurrentWindow().destroy();
-        remote.app.exit(0);
-    }
-});
-
-FILE.empty();
+FILE.empty()
 ipcRenderer.on("arg", (event, file) => {
     if (fs.statSync(file).isFile()) {
         if (file.split(".").pop() === "csv") {
-            PARSER.load(file);
+            PARSER.load(file)
         }
     }
-});
+})

@@ -9,7 +9,7 @@ nav {
     background-color: #333;
 }
 :invalid::-webkit-input-placeholder {
-  color: black;
+    color: black;
 }
 input:invalid {
     background-color: #f55;
