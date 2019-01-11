@@ -1,5 +1,5 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
-/* global STATUS FILE TABLE remote */
+/* global STATUS FILE TABLE HISTORY remote */
 "use strict"
 
 remote.getCurrentWindow().on("close", () => {
@@ -11,9 +11,7 @@ remote.getCurrentWindow().on("close", () => {
 })
 
 document.onkeydown = e => {
-    if (e.metaKey || e.altKey) {
-        return
-    }
+    // Add shortcuts for actions
     if (e.ctrlKey) {
         if (e.shiftKey) {
             if (e.keyCode === 68) {
@@ -58,9 +56,38 @@ document.onkeydown = e => {
             if (e.keyCode === 84) {
                 TABLE.add("column", "right")
             }
+            if (e.keyCode === 89) {
+                HISTORY.goForward()
+            }
+            if (e.keyCode === 90) {
+                HISTORY.goBack()
+            }
         }
     } else if (e.keyCode === 112) {
         STATUS.about()
+    }
+    // Allow certain built-in shortcuts
+    if (e.ctrlKey && e.keyCode === 8) {
+        return
+    }
+    if (e.ctrlKey && e.keyCode > 36 && e.keyCode < 41) {
+        return
+    }
+    if (e.ctrlKey && e.keyCode === 65) {
+        return
+    }
+    if (e.ctrlKey && e.keyCode === 67) {
+        return
+    }
+    if (e.ctrlKey && e.keyCode === 86) {
+        return
+    }
+    if (e.ctrlKey && e.keyCode === 88) {
+        return
+    }
+    // Disable all others
+    if (e.metaKey || e.altKey || e.ctrlKey) {
+        e.preventDefault()
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "csv-inator",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "The evil invention of choice to edit csv files",
   "main": "app/index.js",
   "build": {
@@ -95,6 +95,9 @@
     "fileAssociations": [
       {
         "ext": "csv"
+      },
+      {
+        "ext": "tsv"
       }
     ],
     "copyright": "Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)",
@@ -122,11 +125,11 @@
   "email": "Jelmerro@users.noreply.github.com",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^2.0.5",
-    "electron-builder": "^20.23.0",
-    "eslint": "^5.1.0"
+    "electron": "^4.0.1",
+    "electron-builder": "^20.38.4",
+    "eslint": "^5.12.0"
   },
   "dependencies": {
-    "papaparse": "^4.5.0"
+    "papaparse": "^4.6.3"
   }
 }

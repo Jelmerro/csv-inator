@@ -1,15 +1,20 @@
 csv-inator
-======
+==========
 
 ![csv-inator](build/icons/128x128.png)
 
-The evil invention of choice to edit csv files, as found on [github](https://github.com/Jelmerro/csv-inator).
+The evil invention of choice to edit csv files, as found on [github](https://github.com/Jelmerro/csv-inator).  
+Considered feature-complete, feel free to fix the code/bugs in a pull request.
 
 ## Features
 
 - Read and write CSV files with ease
 - Automatic recognition of the delimiter
 - Save the CSV with a custom delimiter
+- Keyboard shortcuts for all functionality
+- Manage the history with Ctrl+Z and Ctrl+Y
+
+[Latest stable installers and packages available here](https://github.com/Jelmerro/csv-inator/releases)
 
 ## Building
 
@@ -44,7 +49,7 @@ You can start csv-inator from the project folder using `npm start` or run the pr
 
 csv-inator and main icon are made by [Jelmer van Arnhem](https://github.com/Jelmerro) and are licensed as MIT, see LICENSE for details.
 
-The name was devised by [M4Y](https://github.com/fabiaant).
+The name was devised by [M4Y](https://github.com/M4Yt).
 
 Electron is licensed as MIT, see [github](https://github.com/electron/electron) for details.
 
