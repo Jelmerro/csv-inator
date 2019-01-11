@@ -1,5 +1,6 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
 "use strict"
+/* eslint-disable no-unused-vars */
 
 const fs = require("fs")
 const path = require("path")
@@ -12,11 +13,13 @@ const TABLE = require("./js/tableactions.js")
 const PARSER = require("./js/parser.js")
 const FILE = require("./js/fileactions.js")
 const KEYBOARD = require("./js/keyboard.js")
+const HISTORY = require("./js/history.js")
 
 FILE.empty()
 ipcRenderer.on("arg", (event, file) => {
     if (fs.statSync(file).isFile()) {
-        if (file.split(".").pop() === "csv") {
+        const filetype = file.split(".").pop()
+        if (["csv", "tsv"].indexOf(filetype) !== -1) {
             PARSER.load(file)
         }
     }

@@ -55,7 +55,8 @@ const open = () => {
     const files = remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
         title: "Open CSV file",
         filters: [
-            {name: "Comma-seperated values file", extensions: ["csv"]}
+            {name: "Comma-seperated values file", extensions: ["csv"]},
+            {name: "Tab-seperated values file", extensions: ["tsv"]}
         ]
     })
     if (files) {
@@ -68,7 +69,8 @@ const open = () => {
 
 const save = () => {
     const accepted = ["~", "|", ",", ".", ";", ":", "\\t", "\t", " "]
-    if (accepted.indexOf(document.getElementById("delimiter").value) === -1) {
+    const delimiter = document.getElementById("delimiter").value
+    if (accepted.indexOf(delimiter) === -1) {
         remote.dialog.showMessageBox(remote.getCurrentWindow(), {
             title: "Warning",
             type: "warning",
@@ -77,12 +79,16 @@ const save = () => {
         })
         return null
     }
+    let savetype = "CSV"
+    let filter = {name: "Comma-seperated values file", extensions: ["csv"]}
+    if (["\\t", "\t"].indexOf(delimiter) !== -1) {
+        savetype = "TSV"
+        filter = {name: "Tab-seperated values file", extensions: ["tsv"]}
+    }
     const file = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {
-        title: "Save CSV file",
+        title: `Save ${savetype} file`,
         defaultPath: STATUS.currentFilename(),
-        filters: [
-            {name: "Comma-seperated values file", extensions: ["csv"]}
-        ]
+        filters: [filter]
     })
     if (file) {
         const success = PARSER.dump(file)
@@ -97,7 +103,7 @@ const askForSave = () => {
     if (!STATUS.hasUnsavedChanges()) {
         return true
     }
-    const buttonNumber = remote.dialog.showMessageBox(remote.getCurrentWindow(), {
+    const button = remote.dialog.showMessageBox(remote.getCurrentWindow(), {
         title: "Warning",
         type: "warning",
         message: "There are unsaved changes, what should we do about it?",
@@ -107,9 +113,9 @@ const askForSave = () => {
             "Cancel"
         ]
     })
-    if (buttonNumber === 0) {
+    if (button === 0) {
         return !!save()
-    } else if (buttonNumber === 1) {
+    } else if (button === 1) {
         STATUS.setUnsavedChanges(false)
         return true
     }

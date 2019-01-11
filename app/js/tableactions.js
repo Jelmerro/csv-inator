@@ -1,5 +1,5 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
-/* global STATUS FILE */
+/* global STATUS FILE HISTORY */
 "use strict"
 
 const add = (type, position) => {
@@ -10,7 +10,8 @@ const add = (type, position) => {
                 index += 1
             }
             const csvRow = document.getElementById("csv").insertRow(index)
-            csvRow.innerHTML = STATUS.focussedCell.parentNode.parentNode.innerHTML
+            const html = STATUS.focussedCell.parentNode.parentNode.innerHTML
+            csvRow.innerHTML = html
             STATUS.focussedCell.blur()
             STATUS.focussedCell.focus()
             STATUS.setUnsavedChanges(true)
@@ -28,7 +29,8 @@ const add = (type, position) => {
                 input.value = ""
                 csvCell.appendChild(input)
             }
-            if (cellIndex === document.getElementById("csv").rows[0].cells.length) {
+            const cells = document.getElementById("csv").rows[0].cells
+            if (cellIndex === cells.length) {
                 cellIndex -= 1
             }
             STATUS.focussedCell.blur()
@@ -37,39 +39,46 @@ const add = (type, position) => {
         }
     }
     setHandlers()
+    HISTORY.newVersion()
 }
 
 const remove = type => {
     if (type === "row") {
-        if (document.getElementById("csv").rows.length > 1 && STATUS.focussedCell) {
+        const rows = document.getElementById("csv").rows
+        if (rows.length > 1 && STATUS.focussedCell) {
             let rowIndex = STATUS.focussedCell.parentNode.parentNode.rowIndex
             const cellIndex = STATUS.focussedCell.parentNode.cellIndex
             document.getElementById("csv").deleteRow(rowIndex)
-            if (rowIndex === document.getElementById("csv").rows.length) {
+            if (rowIndex === rows.length) {
                 rowIndex -= 1
             }
-            STATUS.focussedCell = document.getElementById("csv").rows[rowIndex].cells[cellIndex].getElementsByTagName("input")[0]
+            const cell = rows[rowIndex].cells[cellIndex]
+            STATUS.focussedCell = cell.getElementsByTagName("input")[0]
             STATUS.focussedCell.focus()
             STATUS.setUnsavedChanges(true)
         }
     } else if (type === "column") {
-        if (document.getElementById("csv").rows[0]) {
-            if (document.getElementById("csv").rows[0].cells.length > 1 && STATUS.focussedCell) {
-                const rowIndex = STATUS.focussedCell.parentNode.parentNode.rowIndex
+        const rows = document.getElementById("csv").rows
+        if (rows[0]) {
+            if (rows[0].cells.length > 1 && STATUS.focussedCell) {
+                const rowIndex =
+                    STATUS.focussedCell.parentNode.parentNode.rowIndex
                 let cellIndex = STATUS.focussedCell.parentNode.cellIndex
                 for (const row of document.getElementById("csv").rows) {
                     row.deleteCell(cellIndex)
                 }
-                if (cellIndex === document.getElementById("csv").rows[0].cells.length) {
+                if (cellIndex === rows[0].cells.length) {
                     cellIndex -= 1
                 }
-                STATUS.focussedCell = document.getElementById("csv").rows[rowIndex].cells[cellIndex].getElementsByTagName("input")[0]
+                const cell = rows[rowIndex].cells[cellIndex]
+                STATUS.focussedCell = cell.getElementsByTagName("input")[0]
                 STATUS.focussedCell.focus()
                 STATUS.setUnsavedChanges(true)
             }
         }
     }
     setHandlers()
+    HISTORY.newVersion()
 }
 
 const sanitizeColums = longestRow => {
@@ -90,7 +99,8 @@ const setHandlers = () => {
     for (const input of cells) {
         input.oninput = () => {
             STATUS.setUnsavedChanges(true)
-            FILE.enableOrDisableSaving(true, document.getElementById("delimiter").value)
+            FILE.enableOrDisableSaving(
+                true, document.getElementById("delimiter").value)
         }
         input.onfocus = () => {
             for (const cell of cells) {
@@ -102,8 +112,14 @@ const setHandlers = () => {
             FILE.enableOrDisableMenuItem("column-right", true)
             FILE.enableOrDisableMenuItem("row-above", true)
             FILE.enableOrDisableMenuItem("row-below", true)
-            FILE.enableOrDisableMenuItem("column-remove", document.getElementById("csv").rows[0].cells.length > 1)
-            FILE.enableOrDisableMenuItem("row-remove", document.getElementById("csv").rows.length > 1)
+            FILE.enableOrDisableMenuItem(
+                "column-remove",
+                document.getElementById("csv").rows[0].cells.length > 1)
+            FILE.enableOrDisableMenuItem(
+                "row-remove", document.getElementById("csv").rows.length > 1)
+        }
+        input.onchange = () => {
+            HISTORY.newVersion()
         }
         input.onkeydown = e => {
             if (e.ctrlKey || e.altKey || e.metaKey || !STATUS.focussedCell) {
@@ -111,17 +127,23 @@ const setHandlers = () => {
             }
             const cellIndex = STATUS.focussedCell.parentNode.cellIndex
             let rowIndex = STATUS.focussedCell.parentNode.parentNode.rowIndex
-            if ((e.shiftKey && e.code === "Enter") || (!e.shiftKey && e.code === "ArrowUp")) {
+            const enter = e.code === "Enter"
+            const shiftEnter = e.shiftKey && enter
+            if (shiftEnter || (!e.shiftKey && e.code === "ArrowUp")) {
                 if (rowIndex > 0) {
                     rowIndex -= 1
-                    STATUS.focussedCell = document.getElementById("csv").rows[rowIndex].cells[cellIndex].getElementsByTagName("input")[0]
+                    const rows = document.getElementById("csv").rows
+                    const cell = rows[rowIndex].cells[cellIndex]
+                    STATUS.focussedCell = cell.getElementsByTagName("input")[0]
                     STATUS.focussedCell.focus()
                     setHandlers()
                 }
-            } else if (e.code === "Enter" || e.code === "ArrowDown") {
+            } else if (enter || e.code === "ArrowDown") {
                 if (rowIndex < document.getElementById("csv").rows.length - 1) {
                     rowIndex += 1
-                    STATUS.focussedCell = document.getElementById("csv").rows[rowIndex].cells[cellIndex].getElementsByTagName("input")[0]
+                    const rows = document.getElementById("csv").rows
+                    const cell = rows[rowIndex].cells[cellIndex]
+                    STATUS.focussedCell = cell.getElementsByTagName("input")[0]
                     STATUS.focussedCell.focus()
                     setHandlers()
                 }

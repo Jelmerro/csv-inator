@@ -1,5 +1,6 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
 "use strict"
+/* eslint-disable no-console, max-len */
 
 const electron = require("electron")
 const path = require("path")
@@ -20,7 +21,7 @@ electron.app.on("ready", () => {
                 console.log("\t--version\tShow the version information of csv-inator")
                 electron.app.exit(0)
             } else if (arg === "version") {
-                console.log("csv-inator 0.2.0 Copyright (C) 2018 Jelmer van Arnhem | Licensed MIT\n")
+                console.log("csv-inator 1.0.0 Copyright (C) 2018 Jelmer van Arnhem | Licensed MIT\n")
                 console.log("This is free software; you are free to change and redistribute it.")
                 console.log("There is NO WARRANTY, to the extent permitted by law.\n")
                 electron.app.exit(0)
@@ -36,7 +37,8 @@ electron.app.on("ready", () => {
         height: 666
     }
     if (isDev || process.execPath.indexOf("/app/") !== -1) {
-        const image = electron.nativeImage.createFromPath(path.join(__dirname, "img/logo.png"))
+        const image = electron.nativeImage.createFromPath(
+            path.join(__dirname, "img/logo.png"))
         windowData.icon = image
     }
     const mainWindow = new BrowserWindow(windowData)

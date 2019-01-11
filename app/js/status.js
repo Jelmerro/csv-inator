@@ -44,9 +44,11 @@ const hasUnsavedChanges = () => {
 const updateTitle = () => {
     if (currentFile) {
         if (unsavedChanges) {
-            remote.getCurrentWindow().setTitle(`csv-inator - Editing ${currentFile}`)
+            remote.getCurrentWindow().setTitle(
+                `csv-inator - Editing ${currentFile}`)
         } else {
-            remote.getCurrentWindow().setTitle(`csv-inator - Viewing ${currentFile}`)
+            remote.getCurrentWindow().setTitle(
+                `csv-inator - Viewing ${currentFile}`)
         }
     } else if (unsavedChanges) {
         remote.getCurrentWindow().setTitle("csv-inator - Editing new file")

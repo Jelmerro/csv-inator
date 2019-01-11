@@ -1,5 +1,5 @@
 //Copyright @ Jelmer van Arnhem | Licensed as free software (MIT)
-/* global Papa fs remote FILE STATUS TABLE */
+/* global Papa fs remote FILE STATUS TABLE HISTORY */
 "use strict"
 
 const load = file => {
@@ -21,7 +21,8 @@ const load = file => {
                     csvCell.appendChild(input)
                 }
             }
-            FILE.enableOrDisableSaving(true, papaData.meta.delimiter.replace("\t", "\\t"))
+            FILE.enableOrDisableSaving(
+                true, papaData.meta.delimiter.replace("\t", "\\t"))
         },
         error: err => {
             remote.dialog.showMessageBox(remote.getCurrentWindow(), {
@@ -35,15 +36,18 @@ const load = file => {
         complete: () => {
             STATUS.setCurrentFile(file)
             TABLE.sanitizeColums(longestRow)
+            HISTORY.reset()
             TABLE.setHandlers()
+            HISTORY.newVersion()
         }
     })
 }
 
 const dump = file => {
     const csvTable = document.getElementById("csv")
+    const delimiter = document.getElementById("delimiter").value
     let csv = Papa.unparse(tableToArray(csvTable), {
-        delimiter: document.getElementById("delimiter").value.replace("\\t", "\t"),
+        delimiter: delimiter.replace("\\t", "\t"),
         newline: "\n"
     })
     csv += "\n"
